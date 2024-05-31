@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 import requests
 from opencage.geocoder import OpenCageGeocode
+from urllib.parse import quote
 
 app = Flask(__name__)
 
@@ -17,7 +18,7 @@ def get_phone_location():
     phone_number = request.args.get('phone_number')
     API_KEY = '87a87dbc1a7b67052f8a3a4d7e1ca4f7'
     base_url = 'http://apilayer.net/api/validate'
-    url = base_url + '?access_key=' + API_KEY + '&number=' + phone_number + '&country_code=&format=1'
+    url = base_url + '?access_key=' + API_KEY + '&number=' + quote(phone_number) + '&country_code=&format=1'
     response = requests.get(url)
     data = response.json()
     if data['valid']:
